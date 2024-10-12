@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.GameFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/question_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="32dp"
+        android:background="@drawable/question_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/options_container">
+
+        <TextView
+            android:id="@+id/answers_stat"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="8dp"
+
+            android:background="@drawable/answers_stat_bg"
+
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="@color/main_color"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            tools:text="0 / 20"
+            />
+
+        <TextView
+            android:id="@+id/ans"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="50sp"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+
+
+            app:layout_constraintStart_toStartOf="@id/visible_num"
+            app:layout_constraintEnd_toEndOf="@id/invisible_num"
+            app:layout_constraintBottom_toTopOf="@id/visible_num"
+            tools:text="94"
+            />
+        <TextView
+            android:id="@+id/visible_num"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="30sp"
+            android:textColor="@color/main_color"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="42"
+            />
+        <TextView
+            android:id="@+id/plus"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:background="@drawable/option_bg"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textSize="26sp"
+            android:textColor="@color/main_color"
+
+
+            app:layout_constraintBottom_toBottomOf="@id/visible_num"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/invisible_num"
+            app:layout_constraintStart_toEndOf="@id/visible_num"
+            app:layout_constraintTop_toTopOf="@id/visible_num"
+            tools:text="+" />
+        <TextView
+            android:id="@+id/invisible_num"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="30sp"
+            android:textAlignment="center"
+            android:textColor="@color/main_color"
+
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toEndOf="@id/plus"
+            app:layout_constraintTop_toTopOf="@id/plus"
+            app:layout_constraintBottom_toBottomOf="@id/plus"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="\?"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/options_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <TextView
+            android:id="@+id/tv_option_1"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_option_2"
+            app:layout_constraintBottom_toTopOf="@id/tv_option_3"
+
+            tools:text="52"
+            />
+        <TextView
+            android:id="@+id/tv_option_2"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_option_1"
+            app:layout_constraintBottom_toTopOf="@id/tv_option_4"
+            tools:text="52"
+            />
+        <TextView
+            android:id="@+id/tv_option_3"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_option_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_option_4"
+            app:layout_constraintBottom_toTopOf="@id/tv_option_5"
+
+            tools:text="52"
+            />
+        <TextView
+            android:id="@+id/tv_option_4"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_option_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_option_3"
+            app:layout_constraintBottom_toTopOf="@id/tv_option_6"
+
+            tools:text="52"
+            />
+        <TextView
+            android:id="@+id/tv_option_5"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_option_3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_option_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            tools:text="52"
+            />
+        <TextView
+            android:id="@+id/tv_option_6"
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="30dp"
+            android:textSize="26sp"
+            android:textAlignment="center"
+            android:background="@drawable/option_bg"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_option_4"
+            app:layout_constraintStart_toEndOf="@id/tv_option_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="52"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
