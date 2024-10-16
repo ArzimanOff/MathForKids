@@ -42,6 +42,9 @@ class GameResultFragment : Fragment() {
             }
         )
 
+        binding.btnRetry.setOnClickListener {
+            retryGame()
+        }
     }
 
     override fun onDestroyView() {
@@ -50,11 +53,15 @@ class GameResultFragment : Fragment() {
     }
 
     private fun parseArgs() {
-        gameResult = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getSerializable(KEY_GAME_RESULT, GameResult::class.java)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(KEY_GAME_RESULT, GameResult::class.java)?.let {
+                gameResult = it
+            }
         } else {
-            requireArguments().getSerializable(KEY_GAME_RESULT) as? GameResult
-        } ?: throw RuntimeException("gameResult is null")
+            requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
+                gameResult = it
+            }
+        }
         Log.d(LOG_TAG, "Открыт экран результатов игры с аргументом gameResult = $gameResult")
     }
 
@@ -72,7 +79,7 @@ class GameResultFragment : Fragment() {
         fun newInstance(gameResult: GameResult): GameResultFragment {
             return GameResultFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_GAME_RESULT, gameResult)
+                    putParcelable(KEY_GAME_RESULT, gameResult)
                 }
             }
         }

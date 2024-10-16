@@ -67,11 +67,15 @@ class GameFragment : Fragment() {
     }
 
     private fun parseArgs() {
-        level = if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getSerializable(KEY_LEVEL, Level::class.java)
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(KEY_LEVEL, Level::class.java)?.let {
+                level = it
+            }
         } else {
-            requireArguments().getSerializable(KEY_LEVEL) as? Level
-        } ?: throw RuntimeException("Level is null")
+            requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
+                level = it
+            }
+        }
         Log.d(LOG_TAG, "Открыт экран игры с аргументом Level = $level")
     }
 
@@ -82,7 +86,7 @@ class GameFragment : Fragment() {
         fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_LEVEL, level)
+                    putParcelable(KEY_LEVEL, level)
                 }
             }
         }
