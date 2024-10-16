@@ -1,60 +1,94 @@
 package com.arziman_off.mathforkids.presentation
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arziman_off.mathforkids.R
+import com.arziman_off.mathforkids.databinding.FragmentGameBinding
+import com.arziman_off.mathforkids.domain.entity.GameResult
+import com.arziman_off.mathforkids.domain.entity.GameSettings
+import com.arziman_off.mathforkids.domain.entity.Level
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GameFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GameFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var level: Level
+
+    private var _binding: FragmentGameBinding? = null
+    private val binding: FragmentGameBinding
+        get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        parseArgs()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false)
+    ): View {
+        _binding = FragmentGameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.plus.setOnClickListener {
+            val gameSettings: GameSettings = GameSettings(
+                100,
+                10,
+                60,
+                50
+            )
+            val gameResult: GameResult = GameResult(
+                true,
+                15,
+                20,
+                gameSettings
+            )
+            launchGameResultFragment(gameResult)
+        }
+    }
+
+    private fun launchGameResultFragment(gameResult: GameResult) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, GameResultFragment.newInstance(gameResult))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun parseArgs() {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
+            requireArguments().getParcelable(KEY_LEVEL, Level::class.java)?.let {
+                level = it
+            }
+        } else {
+            requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
+                level = it
+            }
+        }
+        Log.d(LOG_TAG, "Открыт экран игры с аргументом Level = $level")
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GameFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GameFragment().apply {
+        const val NAME = "GameFragment"
+        private const val LOG_TAG = "NEED_LOGS"
+        private const val KEY_LEVEL = "level"
+        fun newInstance(level: Level): GameFragment {
+            return GameFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelable(KEY_LEVEL, level)
                 }
             }
+        }
     }
 }
