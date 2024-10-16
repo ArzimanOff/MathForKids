@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Фон прогресс бара -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/main_color"/>
+            <corners android:radius="20dp"/> <!-- Закругляем фон -->
+        </shape>
+    </item>
+    <!-- Прогресс -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <solid android:color="@color/white"/> <!-- Цвет прогресса -->
+                <corners android:radius="20dp"/> <!-- Закругляем сам прогресс -->
+            </shape>
+        </clip>
+    </item>
+</layer-list>
