@@ -15,17 +15,19 @@ import com.arziman_off.mathforkids.domain.usecases.GenerateQuestionUseCase
 import com.arziman_off.mathforkids.domain.usecases.GetGameSettingsUseCase
 
 class GameViewModel(application: Application) : AndroidViewModel(application) {
-    private val content = application
     private lateinit var level: Level
     private lateinit var gameSettings: GameSettings
-    private var cntOfRightAnswers = 0
-    private var cntOfQuestions = 0
+
+    private val context = application
+    private val repository = GameRepositoryImpl
+
+    private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
+    private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
 
     private var timer: CountDownTimer? = null
 
-    private val repository = GameRepositoryImpl
-    private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
-    private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
+    private var cntOfRightAnswers = 0
+    private var cntOfQuestions = 0
 
 
     private val _formatedTimeLimit = MutableLiveData<String>()
@@ -39,6 +41,10 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val _percentOfRightAnswers = MutableLiveData<Int>()
     val percentOfRightAnswers: LiveData<Int>
         get() = _percentOfRightAnswers
+
+    private val _progressBarStat = MutableLiveData<String>()
+    val progressBarStat: LiveData<String>
+        get() = _progressBarStat
 
     private val _stat = MutableLiveData<String>()
     val stat: LiveData<String>
@@ -64,6 +70,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         getGameSettings(level)
         startTimer()
         generateQuestion()
+        updateProgress()
+        //_percentOfRightAnswers.value = FULL_PERCENT
     }
 
     private fun getGameSettings(level: Level) {
@@ -89,32 +97,47 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         timer?.start()
     }
 
-    private fun generateQuestion(){
+    private fun generateQuestion() {
         _question.value = generateQuestionUseCase(gameSettings.maxSumValue)
     }
 
-    fun chooseAnswer(number: Int){
+    fun chooseAnswer(number: Int) {
         checkAnswer(number)
         updateProgress()
         generateQuestion()
     }
 
     private fun updateProgress() {
-        val percent = (cntOfRightAnswers * PERCENT) / cntOfQuestions
+        val percent = calculatePercentOfRightAnswers()
         _percentOfRightAnswers.value = percent
         _enoughAnswers.value = cntOfRightAnswers >= gameSettings.minCountOfRightAnswers
         _enoughPercent.value = percent >= gameSettings.minPercentOfRightAnswers
 
         _stat.value = String.format(
-            content.resources.getString(R.string.progress_answers),
+            context.resources.getString(R.string.stat),
             cntOfRightAnswers,
             gameSettings.minCountOfRightAnswers
         )
+
+        _progressBarStat.value = String.format(
+            context.resources.getString(R.string.progress_bar_stat),
+            percentOfRightAnswers.value,
+            context.resources.getString(R.string.percent),
+            minPercent.value,
+            context.resources.getString(R.string.percent)
+        )
+    }
+
+    private fun calculatePercentOfRightAnswers(): Int {
+        if (cntOfQuestions == 0) {
+            return 0
+        }
+        return ((cntOfRightAnswers / cntOfQuestions.toDouble()) * FULL_PERCENT).toInt()
     }
 
     private fun checkAnswer(number: Int) {
         val rightAnswer = question.value?.rightAns
-        if (number == rightAnswer){
+        if (number == rightAnswer) {
             cntOfRightAnswers++
         }
         cntOfQuestions++
@@ -136,7 +159,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
         private const val MILLIS_IN_SECONDS = 1000L
-        private const val PERCENT = 100
+        private const val FULL_PERCENT = 100
     }
 
 }
