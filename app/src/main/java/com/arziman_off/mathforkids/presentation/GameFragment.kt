@@ -22,7 +22,7 @@ class GameFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(
             this,
-            AndroidViewModelFactory.getInstance(requireActivity().application)
+            GameViewModelFactory(level, requireActivity().application)
         )[GameViewModel::class.java]
     }
     private val tvOptions by lazy {
@@ -57,36 +57,35 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setViewModelObservers()
         setEventListeners()
-        viewModel.startGame(level)
     }
 
     private fun setViewModelObservers() {
-        viewModel.question.observe(viewLifecycleOwner){
+        viewModel.question.observe(viewLifecycleOwner) {
             binding.ans.text = it.sum.toString()
             binding.visibleNum.text = it.visibleNumber.toString()
-            for (i in 0 until tvOptions.size){
+            for (i in 0 until tvOptions.size) {
                 tvOptions[i].text = it.options[i].toString()
             }
         }
-        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner){
+        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
             binding.progressBar.setProgress(it, true)
         }
-        viewModel.stat.observe(viewLifecycleOwner){
+        viewModel.stat.observe(viewLifecycleOwner) {
             binding.answersStat.text = it
         }
         viewModel.formatedTimeLimit.observe(viewLifecycleOwner) {
             binding.timerText.text = it
         }
-        viewModel.progressBarStat.observe(viewLifecycleOwner){
+        viewModel.progressBarStat.observe(viewLifecycleOwner) {
             binding.progressBarStatText.text = it
         }
-        viewModel.gameResult.observe(viewLifecycleOwner){
+        viewModel.gameResult.observe(viewLifecycleOwner) {
             launchGameResultFragment(it)
         }
     }
 
     private fun setEventListeners() {
-        for(tvOption in tvOptions){
+        for (tvOption in tvOptions) {
             tvOption.setOnClickListener {
                 viewModel.chooseAnswer(tvOption.text.toString().toInt())
             }
