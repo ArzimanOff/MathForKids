@@ -5,6 +5,7 @@
     <color name="main_color_light">#DFEAFA</color>
     <color name="main_color">#307CD3</color>
     <color name="question_bg_color">#49A1FF</color>
+    <color name="white_50">#99FFFFFF</color>
     <color name="green">#3AAF41</color>
     <color name="yellow">#EFD006</color>
     <color name="red">#E4133B</color>

@@ -52,6 +52,22 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/answers_stat"
             />
+
+        <TextView
+            android:id="@+id/progress_bar_stat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textSize="12sp"
+            android:textColor="@color/white_50"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="@id/progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/progress_bar"
+            app:layout_constraintEnd_toEndOf="@id/progress_bar"
+            tools:text="верных ответов: 60%, необходимо: 80%"
+            />
+
+
         <TextView
             android:id="@+id/ans"
 
@@ -101,6 +117,7 @@
             android:textAlignment="center"
             android:textSize="26sp"
             android:textColor="@color/main_color"
+            android:text="@string/plus"
 
 
             app:layout_constraintBottom_toBottomOf="@id/visible_num"
@@ -116,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
 
+            android:text="@string/invisible_num"
             android:textAlignment="center"
             android:padding="16dp"
             android:textSize="30sp"
