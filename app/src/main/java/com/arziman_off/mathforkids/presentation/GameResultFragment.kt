@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
 import com.arziman_off.mathforkids.R
 import com.arziman_off.mathforkids.databinding.FragmentGameResultBinding
 import com.arziman_off.mathforkids.domain.entity.GameResult
@@ -39,15 +40,6 @@ class GameResultFragment : Fragment() {
     }
 
     private fun setEventListeners() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    retryGame()
-                }
-            }
-        )
-
         binding.btnRetry.setOnClickListener {
             retryGame()
         }
@@ -110,16 +102,13 @@ class GameResultFragment : Fragment() {
     }
 
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameFragment.NAME,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+        findNavController().popBackStack()
     }
 
     companion object {
         const val NAME = "GameResultFragment"
         private const val LOG_TAG = "NEED_LOGS"
-        private const val KEY_GAME_RESULT = "game_result"
+        const val KEY_GAME_RESULT = "game_result"
         fun newInstance(gameResult: GameResult): GameResultFragment {
             return GameResultFragment().apply {
                 arguments = Bundle().apply {

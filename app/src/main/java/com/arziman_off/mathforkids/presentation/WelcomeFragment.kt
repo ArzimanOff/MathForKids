@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.arziman_off.mathforkids.R
 import com.arziman_off.mathforkids.databinding.FragmentWelcomeBinding
 
@@ -34,10 +35,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun launchStartGameFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, StartGameFragment.newInstance())
-            .addToBackStack(StartGameFragment.NAME)
-            .commit()
+        findNavController().navigate(R.id.action_welcomeFragment_to_startGameFragment)
     }
 
     override fun onDestroyView() {

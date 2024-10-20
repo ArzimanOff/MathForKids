@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/welcomeFragment">
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.arziman_off.mathforkids.presentation.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_startGameFragment"
+            app:destination="@id/startGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/startGameFragment"
+        android:name="com.arziman_off.mathforkids.presentation.StartGameFragment"
+        android:label="fragment_start_game"
+        tools:layout="@layout/fragment_start_game" >
+        <action
+            android:id="@+id/action_startGameFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.arziman_off.mathforkids.presentation.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" >
+        <action
+            android:id="@+id/action_gameFragment_to_gameResultFragment"
+            app:destination="@id/gameResultFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameResultFragment"
+        android:name="com.arziman_off.mathforkids.presentation.GameResultFragment"
+        android:label="fragment_game_result"
+        tools:layout="@layout/fragment_game_result" >
+        <action
+            android:id="@+id/action_gameResultFragment_to_startGameFragment"
+            app:destination="@id/startGameFragment" />
+    </fragment>
+</navigation>
