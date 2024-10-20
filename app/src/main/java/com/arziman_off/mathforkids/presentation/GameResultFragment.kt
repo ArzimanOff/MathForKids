@@ -35,6 +35,10 @@ class GameResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setGameResultInfo()
+        setEventListeners()
+    }
+
+    private fun setEventListeners() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -50,19 +54,34 @@ class GameResultFragment : Fragment() {
     }
 
     private fun setGameResultInfo() {
-        val resource = if (gameResult.winner){
+        val resource = if (gameResult.winner) {
             R.drawable.ic_win
         } else {
             R.drawable.ic_loose
         }
-        binding.emojiResult.setImageResource(resource)
+        with(binding) {
+            emojiResult.setImageResource(resource)
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_score),
+                gameResult.gameSettings.minCountOfRightAnswers
+            )
 
-        binding.tvRequiredAnswers.text = "Необходимое количество правильных ответов: " + gameResult.gameSettings.minCountOfRightAnswers.toString()
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameResult.countOfRightAnswers
+            )
 
-        binding.tvScoreAnswers.text = "Ваш счет: " + gameResult.countOfRightAnswers.toString()
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                calculatePercentOfRightAnswers(gameResult)
+            )
 
-        binding.tvRequiredPercentage.text = "Необходимый процент правильных ответов: " + gameResult.gameSettings.minPercentOfRightAnswers.toString()
-        binding.tvScorePercentage.text = "Ваш процент правильных ответов:" + calculatePercentOfRightAnswers(gameResult)
+            tvRequiredPercentage.text = String.format(
+                getString(R.string.required_percentage),
+                gameResult.gameSettings.minPercentOfRightAnswers
+            )
+        }
+
     }
 
     private fun calculatePercentOfRightAnswers(gameResult: GameResult): Int {

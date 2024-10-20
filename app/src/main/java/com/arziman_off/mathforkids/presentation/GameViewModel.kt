@@ -2,9 +2,9 @@ package com.arziman_off.mathforkids.presentation
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.arziman_off.mathforkids.R
 import com.arziman_off.mathforkids.data.GameRepositoryImpl
 import com.arziman_off.mathforkids.domain.entity.GameResult
@@ -14,11 +14,13 @@ import com.arziman_off.mathforkids.domain.entity.Question
 import com.arziman_off.mathforkids.domain.usecases.GenerateQuestionUseCase
 import com.arziman_off.mathforkids.domain.usecases.GetGameSettingsUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
-    private lateinit var level: Level
+class GameViewModel(
+    private val application: Application,
+    private val level: Level
+) : ViewModel() {
     private lateinit var gameSettings: GameSettings
 
-    private val context = application
+
     private val repository = GameRepositoryImpl
 
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
@@ -66,16 +68,19 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val gameResult: LiveData<GameResult>
         get() = _gameResult
 
-    fun startGame(level: Level) {
-        getGameSettings(level)
+    init {
+        startGame()
+    }
+
+    private fun startGame() {
+        getGameSettings()
         startTimer()
         generateQuestion()
         updateProgress()
         //_percentOfRightAnswers.value = FULL_PERCENT
     }
 
-    private fun getGameSettings(level: Level) {
-        this.level = level
+    private fun getGameSettings() {
         this.gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswers
     }
@@ -114,17 +119,17 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _enoughPercent.value = percent >= gameSettings.minPercentOfRightAnswers
 
         _stat.value = String.format(
-            context.resources.getString(R.string.stat),
+            application.resources.getString(R.string.stat),
             cntOfRightAnswers,
             gameSettings.minCountOfRightAnswers
         )
 
         _progressBarStat.value = String.format(
-            context.resources.getString(R.string.progress_bar_stat),
+            application.resources.getString(R.string.progress_bar_stat),
             percentOfRightAnswers.value,
-            context.resources.getString(R.string.percent),
+            application.resources.getString(R.string.percent),
             minPercent.value,
-            context.resources.getString(R.string.percent)
+            application.resources.getString(R.string.percent)
         )
     }
 
