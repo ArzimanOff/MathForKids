@@ -1,30 +1,26 @@
 package com.arziman_off.mathforkids.presentation
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.navigation.fragment.findNavController
-import com.arziman_off.mathforkids.R
+import androidx.navigation.fragment.navArgs
 import com.arziman_off.mathforkids.databinding.FragmentGameBinding
 import com.arziman_off.mathforkids.domain.entity.GameResult
-import com.arziman_off.mathforkids.domain.entity.Level
-import com.arziman_off.mathforkids.presentation.GameResultFragment.Companion.KEY_GAME_RESULT
 
 
 class GameFragment : Fragment() {
 
-    private lateinit var level: Level
+    private val args by navArgs<GameFragmentArgs>()
+
     private val viewModel by lazy {
         ViewModelProvider(
             this,
-            GameViewModelFactory(level, requireActivity().application)
+            GameViewModelFactory(args.level, requireActivity().application)
         )[GameViewModel::class.java]
     }
     private val tvOptions by lazy {
@@ -41,11 +37,6 @@ class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -95,40 +86,13 @@ class GameFragment : Fragment() {
     }
 
     private fun launchGameResultFragment(gameResult: GameResult) {
-        val args = Bundle().apply {
-            putParcelable(KEY_GAME_RESULT, gameResult)
-        }
-        findNavController().navigate(R.id.action_gameFragment_to_gameResultFragment, args)
+        findNavController().navigate(
+            GameFragmentDirections.actionGameFragmentToGameResultFragment(gameResult)
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun parseArgs() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(KEY_LEVEL, Level::class.java)?.let {
-                level = it
-            }
-        } else {
-            requireArguments().getParcelable<Level>(KEY_LEVEL)?.let {
-                level = it
-            }
-        }
-        Log.d(LOG_TAG, "Открыт экран игры с аргументом Level = $level")
-    }
-
-    companion object {
-        const val NAME = "GameFragment"
-        private const val LOG_TAG = "NEED_LOGS"
-        const val KEY_LEVEL = "level"
-        fun newInstance(level: Level): GameFragment {
-            return GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
-            }
-        }
     }
 }

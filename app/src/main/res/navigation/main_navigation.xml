@@ -32,6 +32,9 @@
             app:destination="@id/gameResultFragment"
             app:popUpTo="@id/gameFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="level"
+            app:argType="com.arziman_off.mathforkids.domain.entity.Level" />
     </fragment>
     <fragment
         android:id="@+id/gameResultFragment"
@@ -41,5 +44,8 @@
         <action
             android:id="@+id/action_gameResultFragment_to_startGameFragment"
             app:destination="@id/startGameFragment" />
+        <argument
+            android:name="gameResult"
+            app:argType="com.arziman_off.mathforkids.domain.entity.GameResult" />
     </fragment>
 </navigation>

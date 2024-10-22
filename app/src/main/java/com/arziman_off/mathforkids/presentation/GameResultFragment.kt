@@ -1,29 +1,24 @@
 package com.arziman_off.mathforkids.presentation
 
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.arziman_off.mathforkids.R
 import com.arziman_off.mathforkids.databinding.FragmentGameResultBinding
 import com.arziman_off.mathforkids.domain.entity.GameResult
 
 class GameResultFragment : Fragment() {
-    private lateinit var gameResult: GameResult
+    private val args by navArgs<GameResultFragmentArgs>()
+    private val gameResult
+        get() = args.gameResult
     private var _binding: FragmentGameResultBinding? = null
     private val binding: FragmentGameResultBinding
         get() = _binding ?: throw RuntimeException("FragmentGameResultBinding == null")
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -88,33 +83,7 @@ class GameResultFragment : Fragment() {
         _binding = null
     }
 
-    private fun parseArgs() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(KEY_GAME_RESULT, GameResult::class.java)?.let {
-                gameResult = it
-            }
-        } else {
-            requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
-                gameResult = it
-            }
-        }
-        Log.d(LOG_TAG, "Открыт экран результатов игры с аргументом gameResult = $gameResult")
-    }
-
     private fun retryGame() {
         findNavController().popBackStack()
-    }
-
-    companion object {
-        const val NAME = "GameResultFragment"
-        private const val LOG_TAG = "NEED_LOGS"
-        const val KEY_GAME_RESULT = "game_result"
-        fun newInstance(gameResult: GameResult): GameResultFragment {
-            return GameResultFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_GAME_RESULT, gameResult)
-                }
-            }
-        }
     }
 }
