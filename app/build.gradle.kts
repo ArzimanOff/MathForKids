@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.navigation.safeargs)
-
+    id ("kotlin-kapt")
 }
 
 android {
@@ -39,7 +39,7 @@ android {
 
 
     buildFeatures{
-        viewBinding = true
+        dataBinding = true
     }
 }
 
