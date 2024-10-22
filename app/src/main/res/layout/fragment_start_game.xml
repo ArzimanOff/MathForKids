@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".presentation.StartGameFragment">
+<layout>
 
-    <ImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="160dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/welcome_logo"
-        android:src="@drawable/ic_brain"
-        />
-    <TextView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/choose_level_title"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textSize="24sp"
-        android:padding="32dp"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".presentation.StartGameFragment">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_level_test"
-        style="@style/BtnStyle"
-        app:cornerRadius="16dp"
-        android:layout_marginVertical="4dp"
-        android:text="@string/test_level"
-        />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_level_easy"
-        style="@style/BtnStyle"
-        app:cornerRadius="16dp"
-        android:layout_marginVertical="4dp"
-        android:text="@string/easy_level"
-        android:backgroundTint="@color/green"
-        />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_level_normal"
-        style="@style/BtnStyle"
-        app:cornerRadius="16dp"
-        android:layout_marginVertical="4dp"
-        android:text="@string/normal_level"
-        android:backgroundTint="@color/yellow"
-        />
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_level_hard"
-        style="@style/BtnStyle"
-        app:cornerRadius="16dp"
-        android:layout_marginVertical="4dp"
-        android:text="@string/hard_level"
-        android:backgroundTint="@color/red"
-        />
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/welcome_logo"
+            android:src="@drawable/ic_brain" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="32dp"
+            android:text="@string/choose_level_title"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_level_test"
+            style="@style/BtnStyle"
+            android:layout_marginVertical="4dp"
+            android:text="@string/test_level"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_level_easy"
+            style="@style/BtnStyle"
+            android:layout_marginVertical="4dp"
+            android:backgroundTint="@color/green"
+            android:text="@string/easy_level"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_level_normal"
+            style="@style/BtnStyle"
+            android:layout_marginVertical="4dp"
+            android:backgroundTint="@color/yellow"
+            android:text="@string/normal_level"
+            app:cornerRadius="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_level_hard"
+            style="@style/BtnStyle"
+            android:layout_marginVertical="4dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/hard_level"
+            app:cornerRadius="16dp" />
+
+    </LinearLayout>
+</layout>
