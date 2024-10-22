@@ -1,11 +1,11 @@
 package com.arziman_off.mathforkids.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arziman_off.mathforkids.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.arziman_off.mathforkids.databinding.FragmentWelcomeBinding
 
 class WelcomeFragment : Fragment() {
@@ -13,10 +13,6 @@ class WelcomeFragment : Fragment() {
     private var _binding: FragmentWelcomeBinding? = null
     private val binding: FragmentWelcomeBinding
         get() = _binding ?: throw RuntimeException("FragmentWelcomeBinding == null")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +30,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun launchStartGameFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, StartGameFragment.newInstance())
-            .addToBackStack(StartGameFragment.NAME)
-            .commit()
+        findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToStartGameFragment())
     }
 
     override fun onDestroyView() {

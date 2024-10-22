@@ -1,311 +1,325 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.GameFragment">
+<layout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/question_container"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.arziman_off.mathforkids.presentation.GameViewModel" />
+    </data>
+    
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingBottom="32dp"
-        android:background="@drawable/question_bg"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/options_container">
+        android:layout_height="match_parent"
+        tools:context=".presentation.GameFragment">
 
-        <TextView
-            android:id="@+id/answers_stat"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"
-
-            android:background="@drawable/answers_stat_bg"
-
-            android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:textColor="@color/main_color"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            tools:text="0 / 20"
-            />
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
-
-            android:max="100"
-            android:progressDrawable="@drawable/rounded_progress_bar"
-            android:secondaryProgressTint="@android:color/background_dark"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/answers_stat"
-            />
-
-        <TextView
-            android:id="@+id/progress_bar_stat_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:textSize="12sp"
-            android:textColor="@color/white_50"
-            android:textAlignment="center"
-            app:layout_constraintStart_toStartOf="@id/progress_bar"
-            app:layout_constraintTop_toBottomOf="@id/progress_bar"
-            app:layout_constraintEnd_toEndOf="@id/progress_bar"
-            tools:text="верных ответов: 60%, необходимо: 80%"
-            />
-
-
-        <TextView
-            android:id="@+id/ans"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:textSize="50sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-
-
-            app:layout_constraintStart_toStartOf="@id/visible_num"
-            app:layout_constraintEnd_toEndOf="@id/invisible_num"
-            app:layout_constraintBottom_toTopOf="@id/visible_num"
-            tools:text="94"
-            />
-        <TextView
-            android:id="@+id/visible_num"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:textAlignment="center"
-            android:padding="16dp"
-            android:textSize="30sp"
-            android:textColor="@color/main_color"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="42"
-            />
-        <TextView
-            android:id="@+id/plus"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:background="@drawable/option_bg"
-            android:padding="6dp"
-            android:textAlignment="center"
-            android:textSize="26sp"
-            android:textColor="@color/main_color"
-            android:text="@string/plus"
-
-
-            app:layout_constraintBottom_toBottomOf="@id/visible_num"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/invisible_num"
-            app:layout_constraintStart_toEndOf="@id/visible_num"
-            app:layout_constraintTop_toTopOf="@id/visible_num"
-            tools:text="+" />
-        <TextView
-            android:id="@+id/invisible_num"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:text="@string/invisible_num"
-            android:textAlignment="center"
-            android:padding="16dp"
-            android:textSize="30sp"
-            android:textColor="@color/main_color"
-
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintStart_toEndOf="@id/plus"
-            app:layout_constraintTop_toTopOf="@id/plus"
-            app:layout_constraintBottom_toBottomOf="@id/plus"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="\?"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <FrameLayout
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/question_container"
-        app:layout_constraintBottom_toBottomOf="@id/question_container"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/question_bg"
-        >
-        <ProgressBar
-            android:id="@+id/circularProgressBar"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/question_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/question_bg"
+            android:paddingBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@id/options_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/answers_stat"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/answers_stat_bg"
+
+                android:padding="8dp"
+
+                android:text="@{viewModel.stat}"
+                android:textAlignment="center"
+                android:textColor="@color/main_color"
+                android:textSize="18sp"
+                android:textStyle="bold"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:text="0 / 20" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+
+                app:progressBar="@{viewModel.percentOfRightAnswers}"
+                android:max="100"
+                android:progressDrawable="@drawable/rounded_progress_bar"
+                android:secondaryProgressTint="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/answers_stat" />
+
+            <TextView
+                android:id="@+id/progress_bar_stat_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@{viewModel.progressBarStat}"
+                android:textAlignment="center"
+                android:textColor="@color/white_50"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@id/progress_bar"
+                app:layout_constraintStart_toStartOf="@id/progress_bar"
+                app:layout_constraintTop_toBottomOf="@id/progress_bar"
+                tools:text="верных ответов: 60%, необходимо: 80%" />
+
+
+            <TextView
+                android:id="@+id/ans"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="50sp"
+
+                app:ans="@{viewModel.question.sum}"
+                app:layout_constraintBottom_toTopOf="@id/visible_num"
+                app:layout_constraintEnd_toEndOf="@id/invisible_num"
+                app:layout_constraintStart_toStartOf="@id/visible_num"
+                tools:text="94" />
+
+            <TextView
+                android:id="@+id/visible_num"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:background="@drawable/option_bg"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/main_color"
+                android:textSize="30sp"
+                app:visibleNum="@{viewModel.question.visibleNumber}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/plus"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="42" />
+
+            <TextView
+                android:id="@+id/plus"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:background="@drawable/option_bg"
+                android:padding="6dp"
+                android:text="@string/plus"
+                android:textAlignment="center"
+                android:textColor="@color/main_color"
+                android:textSize="26sp"
+
+
+                app:layout_constraintBottom_toBottomOf="@id/visible_num"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/invisible_num"
+                app:layout_constraintStart_toEndOf="@id/visible_num"
+                app:layout_constraintTop_toTopOf="@id/visible_num"
+                tools:text="+" />
+
+            <TextView
+                android:id="@+id/invisible_num"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:background="@drawable/option_bg"
+                android:padding="16dp"
+                android:text="@string/invisible_num"
+                android:textAlignment="center"
+                android:textColor="@color/main_color"
+
+                android:textSize="30sp"
+
+                app:layout_constraintBottom_toBottomOf="@id/plus"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/plus"
+                app:layout_constraintTop_toTopOf="@id/plus"
+                tools:text="\?" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:indeterminateOnly="false"
-            android:max="100"
-            android:progress="100"
-            android:progressTint="@color/purple"
-            android:progressBackgroundTint="@color/white"
-            android:progressDrawable="@drawable/circular_progress_bar"
-            android:rotation="-90"/>
-        <TextView
-            android:id="@+id/timerText"
+            android:background="@drawable/question_bg"
+            app:layout_constraintBottom_toBottomOf="@id/question_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/question_container">
+
+            <ProgressBar
+                android:id="@+id/circularProgressBar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progress="100"
+                android:progressBackgroundTint="@color/white"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                android:progressTint="@color/purple"
+                android:rotation="-90" />
+
+            <TextView
+                android:id="@+id/timerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{viewModel.formatedTimeLimit}"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="100"
+                />
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/options_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            android:text="100"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            />
-    </FrameLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/options_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingBottom="16dp"
-        android:paddingTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
-            android:id="@+id/tv_option_1"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
             android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_option_2"
-            app:layout_constraintBottom_toTopOf="@id/tv_option_3"
-
-            tools:text="52"
-            />
-        <TextView
-            android:id="@+id/tv_option_2"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_option_1"
-            app:layout_constraintBottom_toTopOf="@id/tv_option_4"
-            tools:text="52"
-            />
-        <TextView
-            android:id="@+id/tv_option_3"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toBottomOf="@id/tv_option_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_option_4"
-            app:layout_constraintBottom_toTopOf="@id/tv_option_5"
-
-            tools:text="52"
-            />
-        <TextView
-            android:id="@+id/tv_option_4"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toBottomOf="@id/tv_option_2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_option_3"
-            app:layout_constraintBottom_toTopOf="@id/tv_option_6"
-
-            tools:text="52"
-            />
-        <TextView
-            android:id="@+id/tv_option_5"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toBottomOf="@id/tv_option_3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/tv_option_6"
+            android:paddingTop="40dp"
+            android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-
-            tools:text="52"
-            />
-        <TextView
-            android:id="@+id/tv_option_6"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:paddingHorizontal="16dp"
-            android:paddingVertical="30dp"
-            android:textSize="26sp"
-            android:textAlignment="center"
-            android:background="@drawable/option_bg"
-
-            app:layout_constraintTop_toBottomOf="@id/tv_option_4"
-            app:layout_constraintStart_toEndOf="@id/tv_option_5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="52"
-            />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tv_option_1"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toTopOf="@id/tv_option_3"
+                app:layout_constraintEnd_toStartOf="@id/tv_option_2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/tv_option_2"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toTopOf="@id/tv_option_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_option_1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/tv_option_3"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toTopOf="@id/tv_option_5"
+                app:layout_constraintEnd_toStartOf="@id/tv_option_4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_1"
+
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/tv_option_4"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toTopOf="@id/tv_option_6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_option_3"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_2"
+
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/tv_option_5"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_option_6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_3"
+
+                tools:text="52" />
+
+            <TextView
+                android:id="@+id/tv_option_6"
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/option_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="30dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_option_5"
+                app:layout_constraintTop_toBottomOf="@id/tv_option_4"
+                tools:text="52" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

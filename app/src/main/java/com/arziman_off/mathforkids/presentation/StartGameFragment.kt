@@ -1,11 +1,11 @@
 package com.arziman_off.mathforkids.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arziman_off.mathforkids.R
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.arziman_off.mathforkids.databinding.FragmentStartGameBinding
 import com.arziman_off.mathforkids.domain.entity.Level
 
@@ -14,10 +14,6 @@ class StartGameFragment : Fragment() {
     private var _binding: FragmentStartGameBinding? = null
     private val binding: FragmentStartGameBinding
         get() = _binding ?: throw RuntimeException("FragmentWelcomeBinding == null")
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,21 +46,13 @@ class StartGameFragment : Fragment() {
     }
 
     private fun launchGameFragment(level: Level) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, GameFragment.newInstance(level))
-            .addToBackStack(GameFragment.NAME)
-            .commit()
+        findNavController().navigate(
+            StartGameFragmentDirections.actionStartGameFragmentToGameFragment(level)
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        const val NAME = "StartGameFragment"
-        fun newInstance(): StartGameFragment {
-            return StartGameFragment()
-        }
     }
 }
