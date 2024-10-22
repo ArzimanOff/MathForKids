@@ -20,7 +20,6 @@ class GameViewModel(
 ) : ViewModel() {
     private lateinit var gameSettings: GameSettings
 
-
     private val repository = GameRepositoryImpl
 
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)

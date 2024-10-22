@@ -48,29 +48,17 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         setViewModelObservers()
         setEventListeners()
     }
 
     private fun setViewModelObservers() {
         viewModel.question.observe(viewLifecycleOwner) {
-            binding.ans.text = it.sum.toString()
-            binding.visibleNum.text = it.visibleNumber.toString()
             for (i in 0 until tvOptions.size) {
                 tvOptions[i].text = it.options[i].toString()
             }
-        }
-        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
-            binding.progressBar.setProgress(it, true)
-        }
-        viewModel.stat.observe(viewLifecycleOwner) {
-            binding.answersStat.text = it
-        }
-        viewModel.formatedTimeLimit.observe(viewLifecycleOwner) {
-            binding.timerText.text = it
-        }
-        viewModel.progressBarStat.observe(viewLifecycleOwner) {
-            binding.progressBarStatText.text = it
         }
         viewModel.gameResult.observe(viewLifecycleOwner) {
             launchGameResultFragment(it)

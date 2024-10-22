@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+        <variable
+            name="viewModel"
+            type="com.arziman_off.mathforkids.presentation.GameViewModel" />
+    </data>
+    
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -28,6 +34,7 @@
 
                 android:padding="8dp"
 
+                android:text="@{viewModel.stat}"
                 android:textAlignment="center"
                 android:textColor="@color/main_color"
                 android:textSize="18sp"
@@ -47,6 +54,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
 
+                app:progressBar="@{viewModel.percentOfRightAnswers}"
                 android:max="100"
                 android:progressDrawable="@drawable/rounded_progress_bar"
                 android:secondaryProgressTint="@android:color/background_dark"
@@ -59,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:text="@{viewModel.progressBarStat}"
                 android:textAlignment="center"
                 android:textColor="@color/white_50"
                 android:textSize="12sp"
@@ -79,7 +88,7 @@
                 android:textColor="@color/white"
                 android:textSize="50sp"
 
-
+                app:ans="@{viewModel.question.sum}"
                 app:layout_constraintBottom_toTopOf="@id/visible_num"
                 app:layout_constraintEnd_toEndOf="@id/invisible_num"
                 app:layout_constraintStart_toStartOf="@id/visible_num"
@@ -97,7 +106,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/main_color"
                 android:textSize="30sp"
-
+                app:visibleNum="@{viewModel.question.visibleNumber}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toStartOf="@id/plus"
@@ -179,10 +188,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="100"
+                android:text="@{viewModel.formatedTimeLimit}"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="100"
+                />
         </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
